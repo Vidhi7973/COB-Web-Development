@@ -1,47 +1,95 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-image:url('pexels-leeloo-thefirst-5238670.jpg');
     text-align: center;
-    background-color: #181717;
+    margin: 0;
+    padding: 0;
+    color: #100f0f;
 }
 
-.quiz-container {
+.container {
+    background: linear-gradient(#e7cfcf, #b0b2c8);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 250px auto;
     padding: 20px;
-    background-color: #ddbde9ed;
-    border-radius: 65px;
-    box-shadow: 0 0 10px rgba(255, 241, 241, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 35px;
+    color: #3450db;
     margin-bottom: 20px;
 }
 
-.answer {
-    display: block;
-    width: 100%;
-    margin: 5px;
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
     padding: 10px;
-    background-color: #290d03;
-    color: #7ad1f0;
     border: none;
-    border-radius: 65px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #a8e8a7;
+    color: #3450db;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 18px;
 }
 
-.answer:hover {
-    background-color: #7a45a0;
+button:hover {
+    background-color: #29b94b;
 }
 
-#result {
-    margin-top: 20px;
+ul {
+    list-style: none;
+    padding: 0;
 }
 
-#next-button {
-    background-color: #181717;
-    color:#7ad1f0 ;
-    display:none;
-    border-radius: 65px;
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #100f0f;
+    font-size: 18px;
+    position: relative;
+}
+
+li:last-child {
+    border: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #000000;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.delete {
+    background-color: #e74c3c;
+    color: #3d3d3d;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    padding: 8px 15px;
+    font-size: 16px;
+}
+
+.delete:hover {
+    background-color: #c0392b;
 }

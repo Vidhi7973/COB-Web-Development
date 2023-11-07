@@ -1,88 +1,44 @@
-const questions = [
-    {
-        question: "Who was the 16th President of the United States?",
-        answers: [" Thomas Jefferson", "Abraham Lincoln","George Washington","John F. Kennedy"],
-        correctAnswer: "Abraham Lincoln",
-    },
-    {
-        question: "What is the capital of France?",
-        answers: ["Madrid", "Berlin", "Paris", "Rome"],
-        correctAnswer: "Paris",
-    },
-    {
-        question: "Which planet is known as the Red Planet?",
-        answers: ["Earth", "Mars", "Venus", "Jupiter"],
-        correctAnswer: "Mars",
-    },
-    {
-        question: "What is the chemical symbol for water?",
-        answers: ["H2O", "O2", "CO2", "N2O"],
-        correctAnswer: "H2O",
-    },
-    {
-        question: "Which river is the longest in the world?",
-        answers: ["Amazon", "Nile", "Mississippi", "Ganga"],
-        correctAnswer: "Nile",
-    },
-    
-];
+document.addEventListener("DOMContentLoaded", function () {
+    const taskInput = document.getElementById("taskInput");
+    const addTaskButton = document.getElementById("addTask");
+    const taskList = document.getElementById("taskList");
+    const clearAllButton = document.getElementById("clearAll");
+    const clearCompletedButton = document.getElementById("clearCompleted");
 
-let currentQuestion = 0;
-let score = 0;
+    addTaskButton.addEventListener("click", function () {
+        const taskText = taskInput.value.trim();
 
-const questionText = document.getElementById("question-text");
-const answerButtons = document.querySelectorAll(".answer");
-const resultText = document.getElementById("result-text");
-const nextButton = document.getElementById("next-button");
-
-function startQuiz() {
-    nextButton.style.display = "none";
-    loadQuestion(currentQuestion);
-}
-
-function loadQuestion(questionIndex) {
-    const currentQues = questions[questionIndex];
-    questionText.textContent = currentQues.question;
-    for (let i = 0; i < answerButtons.length; i++) {
-        answerButtons[i].textContent = currentQues.answers[i];
-    }
-}
-
-function checkAnswer(button) {
-    const selectedAnswer = button.textContent;
-    const correctAnswer = questions[currentQuestion].correctAnswer;
-    if (selectedAnswer === correctAnswer) {
-        score++;
-    }
-    resultText.textContent = selectedAnswer === correctAnswer ? "Correct!" : "Incorrect!";
-    resultText.style.color = selectedAnswer === correctAnswer ? "green" : "red";
-    nextButton.style.display = "block";
-    answerButtons.forEach(button => {
-        button.disabled = true;
+        if (taskText !== "") {
+            const taskItem = document.createElement("li");
+            taskItem.innerHTML = `
+                <span>${taskText}</span>
+                <div class="task-actions">
+                    <button class="complete">Mark as Complete</button>
+                    <button class="delete">Delete</button>
+                </div>
+            `;
+            taskList.appendChild(taskItem);
+            taskInput.value = "";
+            const completeButton = taskItem.querySelector(".complete");
+            completeButton.addEventListener("click", function () {
+                taskItem.querySelector("span").classList.add("completed");
+                completeButton.style.display = "none";
+            });
+            const deleteButton = taskItem.querySelector(".delete");
+            deleteButton.addEventListener("click", function () {
+                taskItem.remove();
+            });
+        }
     });
-}
 
-function nextQuestion() {
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-        loadQuestion(currentQuestion);
-        resultText.textContent = "";
-        nextButton.style.display = "none";
-        answerButtons.forEach(button => {
-            button.disabled = false;
+    clearAllButton.addEventListener("click", function () {
+        taskList.innerHTML = "";
+    });
+
+    clearCompletedButton.addEventListener("click", function () {
+        const completedTasks = document.querySelectorAll("li span.completed");
+        completedTasks.forEach(function (task) {
+            task.parentElement.remove();
         });
-    } else {
-        showFinalScore();
-    }
-}
-
-function showFinalScore() {
-    questionText.textContent = `You have answered all the questions! Your score: ${score}/${questions.length}`;
-    resultText.textContent = "";
-    answerButtons.forEach(button => {
-        button.style.display = "none";
     });
-    nextButton.style.display = "none";
-}
-
-startQuiz();
+});
